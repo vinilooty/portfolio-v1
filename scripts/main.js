@@ -24,6 +24,7 @@ import { scrollIndicator } from "@anim/animations.js";
 
 //pages
 import { homePage } from "@pages/homePage.js";
+import { projectsPage } from "@pages/projectsPage.js";
 
 //Main App
 window.Webflow ||= [];
@@ -39,6 +40,9 @@ window.Webflow.push(() => {
 	switch (page) {
 		case "home":
 			homePage();
+			break;
+		case "projects":
+			projectsPage();
 			break;
 	}
 });
