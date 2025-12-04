@@ -38,3 +38,33 @@
 	display: block;
 	will-change: transform;
 }
+.approach__item-media {
+	will-change: transform;
+}
+.approach__philosophy-list-item {
+	transition: opacity 300ms ease-in-out, filter 300ms ease-in-out;
+}
+.approach__philosophy-list:has(.approach__philosophy-list-item:hover)
+	.approach__philosophy-list-item:not(:hover) {
+	opacity: 0.5;
+	filter: blur(2px);
+}
+.philosophy__media-wrap {
+	will-change: transform;
+}
+/* .chars {
+	display: inline-block;
+	margin-right: 0.4em;
+	will-change: transform;
+} */
+
+::-moz-selection {
+  background-color: #fd9620; 
+  color: #ffffff; 
+}
+
+
+::selection {
+  background-color: #fd9620; 
+  color: #ffffff; 
+}

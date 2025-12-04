@@ -25,7 +25,7 @@ import { scrollIndicator } from "@anim/animations.js";
 //pages
 import { homePage } from "@pages/homePage.js";
 import { projectsPage } from "@pages/projectsPage.js";
-
+import { approachPage } from "@pages/approachPage.js";
 //Main App
 window.Webflow ||= [];
 window.Webflow.push(() => {
@@ -43,6 +43,9 @@ window.Webflow.push(() => {
 			break;
 		case "projects":
 			projectsPage();
+			break;
+		case "approach":
+			approachPage();
 			break;
 	}
 });

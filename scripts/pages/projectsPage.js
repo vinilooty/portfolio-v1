@@ -2,6 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
+
 export function projectsPage() {
 	const slides = document.querySelectorAll(".slider-media");
 	const pinDistance = window.innerHeight * slides.length;
