@@ -8,11 +8,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "wrangler pages deploy dist",
-     "host": "vite --host"
+    "host": "vite --host"
   },
   "devDependencies": {
     "vite": "^5.2.0",
-    "wrangler": "^3.53.1"
+    "wrangler": "^4.52.1"
   },
   "dependencies": {
     "gsap": "^3.13.0",
