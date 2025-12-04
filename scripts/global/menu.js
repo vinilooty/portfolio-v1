@@ -226,4 +226,16 @@ export default function initMenu() {
 		});
 	}
 	menuItemHover();
+	const email = document.querySelector(".label__email");
+	
+	email.addEventListener("mouseenter", () => {
+		const emailFill = email.querySelector(".fill-element");
+		gsap.to(emailFill, { width: "100%", duration: 0.5, ease: "hop" })
+		gsap.to(document.querySelector(".email-text"), {color: "#222", duration: 0.2, ease:"hop",})
+	})
+	email.addEventListener("mouseleave", () => {
+		const emailFill = email.querySelector(".fill-element");
+		gsap.to(emailFill, { width: 0, duration: 0.5, ease: "hop" })
+		gsap.to(document.querySelector(".email-text"), {color: "#f2f1f1", duration: 0.2, ease:"hop",})
+	})
 }

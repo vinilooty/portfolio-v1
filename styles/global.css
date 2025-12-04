@@ -5,7 +5,7 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.25);
+	background-color: rgba(0, 0, 0, 0.35);
 }
 
 .slider-indices p {
@@ -59,12 +59,46 @@
 } */
 
 ::-moz-selection {
-  background-color: #fd9620; 
-  color: #ffffff; 
+	background-color: #fd9620;
+	color: #ffffff;
 }
 
-
 ::selection {
-  background-color: #fd9620; 
-  color: #ffffff; 
+	background-color: #fd9620;
+	color: #ffffff;
+}
+
+.load__grid{
+	display: grid;
+}
+.loader {
+	display: flex;
+}
+
+.w-checkbox-input--inputType-custom.w--redirected-focus {
+box-shadow: none;
+}
+
+.w-input:focus, .w-select:focus {
+border-color: #cccccc;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #000000 !important;
+}
+label.error {
+position: absolute;
+color: red;
+font-size: 14px;
+font-weight: 400;
+margin-top: 6px;
+}
+/* Style for the error state of input */
+.w-input.error {
+border-color: red;
+border-radius: 0px;
 }

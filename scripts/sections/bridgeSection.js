@@ -3,96 +3,93 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { customEases } from "@globals/gsapConfig.js";
 import { lenisRef } from "@globals/lenis.js";
-import initSmoothScroll from "@globals/lenis.js";
 
 export function bridgeSection() {
-	if (!lenisRef) {
-		console.warn("lenisRef not initialized yet");
-	}
-	initSmoothScroll();
-	customEases();
 
-	const role = document.querySelector(".bridge-gap.is-role");
-	const bridge = document.querySelector(".bridge-gap.is-bridge");
-	const that = document.querySelector(".bridge-gap.is-that");
-	const gap = document.querySelector(".bridge-gap.is-gap");
+ 
+  document.fonts.ready.then(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
 
-	const trigger = document.querySelector(".bridge-track");
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+        customEases();
 
-	const roleSplit = new SplitText(role, { type: "words", mask: "words" });
-	const bridgeSplit = new SplitText(bridge, { type: "words", mask: "words" });
-	const thatSplit = new SplitText(that, { type: "words", mask: "words" });
-	const gapSplit = new SplitText(gap, { type: "chars", charsClass: "chars" });
+        const role = document.querySelector(".bridge-gap.is-role");
+        const bridge = document.querySelector(".bridge-gap.is-bridge");
+        const that = document.querySelector(".bridge-gap.is-that");
+        const gap = document.querySelector(".bridge-gap.is-gap");
+        const trigger = document.querySelector(".bridge-track");
 
-	gsap.set([role, bridge, that], { opacity: 1 });
-	gsap.set(gap, { opacity: 1 });
+        if (!role || !bridge || !that || !gap || !trigger) return;
 
-	gsap.set(role, { x: "-35vw", y: "-45vh" });
-	gsap.set(bridge, { x: "2vw", y: "-45vh" });
-	gsap.set(that, { x: "35vw", y: "-45vh" });
-	gsap.set(gapSplit.chars, {
-		opacity: 0,
-		yPercent: 100,
-		x: "20vw",
-		y: "-20vh",
-	});
+       
+        const roleSplit = new SplitText(role, { type: "words" });
+        const bridgeSplit = new SplitText(bridge, { type: "words" });
+        const thatSplit = new SplitText(that, { type: "words" });
+        const gapSplit = new SplitText(gap, { type: "chars" });
 
-	const tl = gsap.timeline({ defaults: { ease: "power1.inOut" } });
+        gsap.set([role, bridge, that, gap], { opacity: 1 });
 
-	tl.to(role, { x: "-25vw", y: "-35vh", duration: 1 });
-	tl.from(
-		roleSplit.words,
-		{ yPercent: 100, stagger: 0.05, duration: 0.6 },
-		"<"
-	);
+       
+        gsap.set(role,   { y: "-10vh" });
+        gsap.set(bridge, { y: "0vh" });
+        gsap.set(that,   { y: "10vh" });
+        gsap.set(gap,    { y: "20vh" });
 
-	tl.to(bridge, { x: "2vw", y: "-35vh", duration: 1 }, "<0.2");
-	tl.from(
-		bridgeSplit.words,
-		{ yPercent: 100, stagger: 0.05, duration: 0.6 },
-		"<"
-	);
+        gsap.set([roleSplit.words, bridgeSplit.words, thatSplit.words], {
+          xPercent: -100,
+          opacity: 0,
+        });
 
-	tl.to(that, { x: "25vw", y: "-35vh", duration: 1 }, "<0.2");
-	tl.from(
-		thatSplit.words,
-		{ yPercent: 100, stagger: 0.05, duration: 0.6 },
-		"<"
-	);
+        gsap.set(gapSplit.chars, {
+          xPercent: -100,
+          opacity: 0,
+        });
 
-	tl.to(
-		gapSplit.chars,
-		{
-			opacity: 1,
-			yPercent: 0,
-			scale: 1.8,
-			duration: 0.8,
-			stagger: 0.05,
-		},
-		"-=0.5"
-	);
+        const tl = gsap.timeline({ ease: "power1.inOut" });
 
-	tl.to(gap, { letterSpacing: "20vw", duration: 1 }, "<0.2");
+        tl.to(roleSplit.words, {
+          xPercent: 0,
+          opacity: 1,
+          stagger: 0.05,
+          duration: 0.7
+        });
 
-	const setHeavy = () => {
-		lenisRef.duration = 4;
-		lenisRef.easing = (t) => t * 0.4;
-	};
-	const setLight = () => {
-		lenisRef.duration = 2;
-		lenisRef.easing = (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
-	};
+        tl.to(bridgeSplit.words, {
+          xPercent: 0,
+          opacity: 1,
+          stagger: 0.05,
+          duration: 0.7
+        }, "<0.15");
 
-	ScrollTrigger.create({
-		trigger: trigger,
-		start: "top top",
-		end: "bottom bottom",
-		scrub: true,
-		markers: true,
-		onEnter: setHeavy,
-		onLeave: setLight,
-		onEnterBack: setHeavy,
-		onLeaveBack: setLight,
-		animation: tl,
-	});
+        tl.to(thatSplit.words, {
+          xPercent: 0,
+          opacity: 1,
+          stagger: 0.05,
+          duration: 0.7
+        }, "<0.15");
+
+        tl.to(gapSplit.chars, {
+          xPercent: 0,
+          opacity: 1,
+          stagger: 0.04,
+          duration: 0.7
+        }, "<0.2");
+
+        tl.to(gap, { letterSpacing: "18vw", duration: 1.2 }, "+=0.2");
+
+        ScrollTrigger.create({
+          trigger,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+          animation: tl,
+        });
+
+       
+        ScrollTrigger.refresh();
+
+      });
+    });
+  });
 }

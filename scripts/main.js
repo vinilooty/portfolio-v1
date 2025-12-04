@@ -21,11 +21,13 @@ import { initButtonInteractions } from "@globals/buttonLogic.js";
 import initSmoothScroll from "@globals/lenis.js";
 import { footerAnimations } from "@anim/animations.js";
 import { scrollIndicator } from "@anim/animations.js";
-
+import { pageTransition } from "@components/pageTransition.js";
+import { pageLoader } from "@components/pageLoader.js";
 //pages
 import { homePage } from "@pages/homePage.js";
 import { projectsPage } from "@pages/projectsPage.js";
 import { approachPage } from "@pages/approachPage.js";
+import { contactPage } from "@pages/contactPage.js";
 //Main App
 window.Webflow ||= [];
 window.Webflow.push(() => {
@@ -37,6 +39,8 @@ window.Webflow.push(() => {
 	initMenu();
 	footerAnimations();
 	scrollIndicator();
+	pageTransition();
+	pageLoader();
 	switch (page) {
 		case "home":
 			homePage();
@@ -46,6 +50,9 @@ window.Webflow.push(() => {
 			break;
 		case "approach":
 			approachPage();
+			break;
+		case "contact":
+			contactPage();
 			break;
 	}
 });
