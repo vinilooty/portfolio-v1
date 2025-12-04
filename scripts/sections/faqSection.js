@@ -10,6 +10,14 @@ export function faqSection() {
 		const answer = item.querySelector(".faq__answer-wrap");
 		const answerText = item.querySelector(".faq__answer");
 
+		item.addEventListener("mouseenter", () => {
+			const elementHover = item.querySelector(".element-hover");
+			gsap.to(elementHover, { height: "100%", duration: 0.5, ease: "hop" });
+		});
+		item.addEventListener("mouseleave", () => {
+			const elementHover = item.querySelector(".element-hover");
+			gsap.to(elementHover, { height: "0%", duration: 0.5, ease: "hop" });
+		});
 		item.addEventListener("click", () => {
 			const answer = item.querySelector(".faq__answer-wrap");
 			const isOpen = answer.classList.contains("is-open");

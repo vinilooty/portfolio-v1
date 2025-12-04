@@ -19,34 +19,60 @@ export function bridgeSection() {
 
 	const trigger = document.querySelector(".bridge-track");
 
-	const roleSplit = new SplitText(role, { type: "words",mask:"words",  });
-	const bridgeSplit = new SplitText(bridge, { type: "words",mask:"words",  });
-	const thatSplit = new SplitText(that, { type: "words",mask:"words",  });
-	const gapSplit = new SplitText(gap, { type: "chars", charsClass:"chars" ,});
+	const roleSplit = new SplitText(role, { type: "words", mask: "words" });
+	const bridgeSplit = new SplitText(bridge, { type: "words", mask: "words" });
+	const thatSplit = new SplitText(that, { type: "words", mask: "words" });
+	const gapSplit = new SplitText(gap, { type: "chars", charsClass: "chars" });
+
+	gsap.set([role, bridge, that], { opacity: 1 });
+	gsap.set(gap, { opacity: 1 });
+
+	gsap.set(role, { x: "-35vw", y: "-45vh" });
+	gsap.set(bridge, { x: "2vw", y: "-45vh" });
+	gsap.set(that, { x: "35vw", y: "-45vh" });
+	gsap.set(gapSplit.chars, {
+		opacity: 0,
+		yPercent: 100,
+		x: "20vw",
+		y: "-20vh",
+	});
 
 	const tl = gsap.timeline({ defaults: { ease: "power1.inOut" } });
 
-	tl.fromTo(
-		role,
-		{ x: "-25vw", y: "-35vh", },
-		{ x: "-25vw", y: "-35vh", duration: 0.8, stagger:0.1 }
+	tl.to(role, { x: "-25vw", y: "-35vh", duration: 1 });
+	tl.from(
+		roleSplit.words,
+		{ yPercent: 100, stagger: 0.05, duration: 0.6 },
+		"<"
 	);
-	tl.fromTo(
-		bridge,
-		{ x: "30vw", y: "-35vh" },
-		{ x: "30vw", y: "-35vh", duration: 0.8, stagger:0.1 }
+
+	tl.to(bridge, { x: "2vw", y: "-35vh", duration: 1 }, "<0.2");
+	tl.from(
+		bridgeSplit.words,
+		{ yPercent: 100, stagger: 0.05, duration: 0.6 },
+		"<"
 	);
-	tl.fromTo(
-		that,
-		{ x: "2vw", y: "-35vh" },
-		{ x: "2vw", y: "-35vh", duration: 0.8,  stagger:0.1 }
+
+	tl.to(that, { x: "25vw", y: "-35vh", duration: 1 }, "<0.2");
+	tl.from(
+		thatSplit.words,
+		{ yPercent: 100, stagger: 0.05, duration: 0.6 },
+		"<"
 	);
-	tl.fromTo(
+
+	tl.to(
 		gapSplit.chars,
-		{ x: "20vw", y: "-20vh", opacity: 0 },
-		{ x: "20vw", y: "-20vh", duration: 0.8, scale: 1.8,stagger:0.1, opacity: 1 }
+		{
+			opacity: 1,
+			yPercent: 0,
+			scale: 1.8,
+			duration: 0.8,
+			stagger: 0.05,
+		},
+		"-=0.5"
 	);
-	tl.to(gap, { duration: 1, letterSpacing: "20vw" },"-=0.4");
+
+	tl.to(gap, { letterSpacing: "20vw", duration: 1 }, "<0.2");
 
 	const setHeavy = () => {
 		lenisRef.duration = 4;
@@ -60,13 +86,13 @@ export function bridgeSection() {
 	ScrollTrigger.create({
 		trigger: trigger,
 		start: "top top",
+		end: "bottom bottom",
+		scrub: true,
+		markers: true,
 		onEnter: setHeavy,
 		onLeave: setLight,
 		onEnterBack: setHeavy,
 		onLeaveBack: setLight,
-		end: "bottom bottom",
-		scrub: true,
-		markers: true,
 		animation: tl,
 	});
 }
