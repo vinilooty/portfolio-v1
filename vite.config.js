@@ -11,6 +11,7 @@ export default defineConfig({
       "@anim": path.resolve(__dirname, "./scripts/animations"),
       "@sections": path.resolve(__dirname, "./scripts/sections"),
       "@pages": path.resolve(__dirname, "./scripts/pages"),
+      "@styles": path.resolve(__dirname, "./styles"),
     },
   },
   build: {
