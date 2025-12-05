@@ -12,6 +12,8 @@ import Swiper from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
 //---Swiper styles
 import "swiper/css/bundle";
+import "./styles/global.css";
+
 //Plugins Registration
 gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase);
 //Module Imports
