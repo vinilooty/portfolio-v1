@@ -1,5 +1,7 @@
 import { gsap } from "gsap";
 import { customEases } from "@globals/gsapConfig.js";
+import { addResponsiveHover } from "@globals/responsiveInput.js";
+
 
 function textSwapper(selector = "[data-message]") {
 	const elements = document.querySelectorAll(selector);
@@ -7,10 +9,11 @@ function textSwapper(selector = "[data-message]") {
 	elements.forEach((el) => {
 		const newText = el.dataset.message;
 		if (!newText) return;
+
 		const target = el.querySelector("[data-swap-target]") || el;
 		const originalText = target.textContent;
 
-		el.addEventListener("mouseenter", () => {
+		const onEnter = () => {
 			gsap.to(target, {
 				opacity: 0,
 				duration: 0.15,
@@ -24,8 +27,9 @@ function textSwapper(selector = "[data-message]") {
 					});
 				},
 			});
-		});
-		el.addEventListener("mouseleave", () => {
+		};
+
+		const onLeave = () => {
 			gsap.to(target, {
 				opacity: 0,
 				duration: 0.15,
@@ -39,7 +43,9 @@ function textSwapper(selector = "[data-message]") {
 					});
 				},
 			});
-		});
+		};
+
+		addResponsiveHover(el, onEnter, onLeave);
 	});
 }
 
@@ -55,8 +61,10 @@ function initBounceHovers(direction) {
 				ease: "back.inOut",
 			});
 
-			el.addEventListener("mouseenter", () => tl.play());
-			el.addEventListener("mouseleave", () => tl.timeScale(1.5).reverse());
+			const onEnter = () => tl.play();
+			const onLeave = () => tl.timeScale(1.5).reverse();
+
+			addResponsiveHover(el, onEnter, onLeave);
 		});
 }
 
@@ -69,6 +77,7 @@ function initButtonLogic() {
 
 		const message = button.dataset.swap;
 		if (!buttonText || !buttonDot || !message) return;
+
 		const originalText = buttonText.textContent;
 
 		const tl = gsap.timeline({ paused: true });
@@ -108,43 +117,46 @@ function initButtonLogic() {
 			">"
 		);
 
-		button.addEventListener("mouseenter", () => {
-			tl.timeScale(1).play();
-		});
-		button.addEventListener("mouseleave", () => {
-			tl.timeScale(1).reverse();
-		});
+		const onEnter = () => tl.timeScale(1).play();
+		const onLeave = () => tl.timeScale(1).reverse();
+
+		addResponsiveHover(button, onEnter, onLeave);
 	});
 }
 
+
 function textHoverReveal(el) {
-	// Custom Ease (Make sure 'hop' is created in main.js or globally)
 	customEases();
+
 	const tl = gsap.timeline({ paused: true, reversed: true });
+
 	tl.from(el, {
 		x: -10,
 		opacity: 0,
 		duration: 0.3,
 		ease: "hop",
 	});
-	el.addEventListener("mouseenter", () => tl.play());
-	el.addEventListener("mouseleave", () => tl.timeScale(1.5).reverse());
+
+	const onEnter = () => tl.play();
+	const onLeave = () => tl.timeScale(1.5).reverse();
+
+	addResponsiveHover(el, onEnter, onLeave);
 }
 
 function initListItemHover() {
 	const valueItem = document.querySelectorAll(".value__list-item");
 	const itemLines = document.querySelectorAll(".list-line--fill");
+
 	gsap.set(itemLines, { opacity: 0, scaleX: "0%" });
 
 	valueItem.forEach((item) => {
 		const itemLine = item.querySelector(".list-line--fill");
-
 		if (!itemLine) return;
 
-		// Custom Ease
 		customEases();
 
 		const tl = gsap.timeline({ paused: true, reversed: true });
+
 		tl.set(itemLine, {
 			opacity: 0.8,
 			scaleX: "0%",
@@ -156,12 +168,10 @@ function initListItemHover() {
 			ease: "hop",
 		});
 
-		item.addEventListener("mouseenter", () => {
-			tl.play();
-		});
-		item.addEventListener("mouseleave", () => {
-			tl.timeScale(1.5).reverse();
-		});
+		const onEnter = () => tl.play();
+		const onLeave = () => tl.timeScale(1.5).reverse();
+
+		addResponsiveHover(item, onEnter, onLeave);
 	});
 }
 

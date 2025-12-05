@@ -21,7 +21,7 @@ export function valueSectionAnimations() {
 		backgroundColor: "#000000",
 		color: "#f9f3ef",
 	})
-		.to(".is-accent", { color: "#1f8276" }, "<")
+		.to(".is-accent", { color: "#42c0ba" }, "<")
 		.to(
 			".list-line",
 			{ backgroundColor: "rgba(31, 130, 118, 0.5)", duration: 0.6 },
