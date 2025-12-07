@@ -15,26 +15,28 @@ export function pageLoader() {
 	let counter = {
 		value: 0,
 	};
-	let loaderDuration = 7;
+	let loaderDuration = 4;
 
 	function updateLoaderText() {
 		let progress = Math.round(counter.value);
 		loaderNumber.textContent = progress + "%";
-    }
-    const hasVisited = sessionStorage.getItem("siteVisited") !== null;
-    const comingFromInside = document.referrer.includes(window.location.origin);
-    if (comingFromInside) {
-        if (loader) loader.style.display = "none";
-        return
-    }
-    if (hasVisited) {        
+	}
+	const hasVisited = sessionStorage.getItem("siteVisited") !== null;
+	const comingFromInside = document.referrer.includes(window.location.origin);
+	if (comingFromInside) {
+		if (loader) loader.style.display = "none";
+		return;
+	}
+	if (hasVisited) {
 		loaderDuration = 2;
 		counter = { value: 75 };
 	}
 	sessionStorage.setItem("siteVisited", "true");
 
-    gsap.set(".loader__ov", {clipPath:"polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)" });
-    gsap.set(".loader__logo", { scale: 15, });
+	gsap.set(".loader__ov", {
+		clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)",
+	});
+	gsap.set(".loader__logo", { scale: 15 });
 	let tl = gsap.timeline({ defaults: { ease: "loader" } });
 	tl.to(counter, {
 		onUpdate: () => {
@@ -47,26 +49,34 @@ export function pageLoader() {
 		loaderBar,
 		{
 			scaleX: 1,
-            duration: loaderDuration,
-            onComplete:()=>{gsap.set(".loader__ov", {display:"flex"})}
+			duration: loaderDuration,
+			onComplete: () => {
+				gsap.set(".loader__ov", { display: "flex" });
+			},
 		},
 		"0"
 	);
-	 tl.to(".loader__ov", {
+	tl.to(".loader__ov", {
 		clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
 		duration: 0.8,
-         borderRadius: "0.5rem",
-         transformOrigin: "center center",
-        ease:"hop",
+		borderRadius: "0.5rem",
+		transformOrigin: "center center",
+		ease: "hop",
 	});
-    tl.to(".loader__logo", {
-        scale: 5,
-        duration: 1,
-        ease:"hop"
-    }, "<");
-    tl.to(loader, {
-        y: "-100vh",
-        duration: 1,
-        onComplete:()=>{gsap.set(loader,{display: "none"})}
-    })
+	tl.to(
+		".loader__logo",
+		{
+			scale: 5,
+			duration: 1,
+			ease: "hop",
+		},
+		"<"
+	);
+	tl.to(loader, {
+		y: "-100vh",
+		duration: 1,
+		onComplete: () => {
+			gsap.set(loader, { display: "none" });
+		},
+	});
 }
