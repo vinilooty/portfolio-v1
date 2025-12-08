@@ -15,7 +15,7 @@ export function pageLoader() {
 	let counter = {
 		value: 0,
 	};
-	let loaderDuration = 4;
+	let loaderDuration = 3;
 
 	function updateLoaderText() {
 		let progress = Math.round(counter.value);
